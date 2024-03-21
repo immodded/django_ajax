@@ -1,0 +1,25 @@
+# Ignore Django database file
+*.sqlite3
+
+# Ignore static files directory
+/staticfiles/
+
+# Ignore media files directory
+/media/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+
+# Ignore environment files
+.env
+
+# Ignore IDE files
+.vscode/
+.idea/
+
+# Ignore local development settings file
+*/settings/local.py
+
+# Ignore macOS system files
+.DS_Store

@@ -1,0 +1,49 @@
+<!-- HTML code to display posts -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <!-- Include jQuery library -->
+</head>
+<body>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+
+<h1>Posts</h1>
+<div id="posts-list"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    function fetchPosts() {
+        $.ajax({
+            type: 'GET',
+            url: '/posts',
+            dataType: 'json',
+            success: function (data) {
+                var postsList = $('#posts-list');
+                postsList.empty(); // Clear previous posts
+                $.each(data.posts, function (index, post) {
+                    postsList.append('<p>' + post.title + '</p>');
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        fetchPosts();
+        setInterval(fetchPosts, 1000);
+    });
+</script>
+
+
+</body>
+</html>

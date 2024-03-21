@@ -1,0 +1,28 @@
+<h1>Posts</h1>
+<div id="posts-list"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    function fetchPosts() {
+        $.ajax({
+            type: 'GET',
+            url: '/posts',
+            dataType: 'json',
+            success: function (data) {
+                var postsList = $('#posts-list');
+                postsList.empty(); // Clear previous posts
+                $.each(data.posts, function (index, post) {
+                    postsList.append('<p>' + post.title + '</p>');
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        fetchPosts();
+        setInterval(fetchPosts, 1000);
+    });
+</script>
