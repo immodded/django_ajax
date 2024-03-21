@@ -33,7 +33,13 @@
                 });
             },
             error: function (xhr, status, error) {
-                console.error(xhr.responseText);
+                if (xhr.status === 401 || xhr.status === 403) {
+                    $('#posts-list').html('<p>Authentication required.</p>');
+                } else if (xhr.status === 404) {
+                    $('#posts-list').html('<p>Not found.</p>');
+                } else {
+                    console.error(xhr.responseText);
+                }
             }
         });
     }
